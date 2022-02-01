@@ -1,3 +1,19 @@
+<title>Ravintolasovellus</title>
+<h1>Tervetuloa!</h1>
+<br>
+<h2>Arvioidut ravintolat:</h2>
+<hr>
+{% for restaurant in reviewed_restaurants %}
+<p>
+<i>Ravintola:</i> <a href="/restaurant/{{ restaurant[0] }}">{{ restaurant[0] }}</a>, {{ restaurant[1] }} tähteä
+{% endfor %}
+</p>
+
+
+
+
+
+
 {% if session.username %}
 <p>Kirjautunut käyttäjänä {{ session.username }}</p>
 <a href="/logout">Kirjaudu ulos</a>

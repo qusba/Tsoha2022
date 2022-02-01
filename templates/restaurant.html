@@ -1,0 +1,11 @@
+<title>{{ restaurant_name[0] }}</title>
+<h1>{{ restaurant_name[0] }}</h1>
+<br>
+<h2>Arviot:</h2>
+<p>
+{% for review in reviews %}
+{{ review[1] }} tähteä<br>
+{{ review[0] }}
+</p>
+{% endfor %}
+ 

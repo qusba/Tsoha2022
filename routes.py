@@ -1,10 +1,17 @@
 from app import app
 from flask import render_template, request, redirect
-import users
+import users,restaurants
 
 @app.route("/")
 def index():
-	return render_template("index.html")
+	list = restaurants.get_restaurants()
+	return render_template("index.html",reviewed_restaurants=list)
+
+@app.route("/restaurant/<string:name>")
+def restaurant(name):
+	r_name = restaurants.get_restaurant_name(name)
+	reviews = restaurants.get_reviews(name)
+	return render_template("restaurant.html",restaurant_name=r_name,reviews=reviews)
 
 @app.route("/login", methods=["GET","POST"])
 def login():
