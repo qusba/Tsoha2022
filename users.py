@@ -13,7 +13,7 @@ def register(username,password):
 	return login(username,password)
 
 def login(username,password):
-	sql = "SELECT username,id,password FROM users WHERE username=:username"
+	sql = "SELECT username,id,password,admin FROM users WHERE username=:username"
 	result = db.session.execute(sql,{"username":username})
 	user = result.fetchone()
 	if not user:
@@ -22,6 +22,8 @@ def login(username,password):
 		if check_password_hash(user.password,password):
 			session["user_id"] = user.id
 			session["username"] = user.username
+			if user.admin == True:
+				session["admin"] = user.admin
 			return True
 		else:
 			return False
@@ -29,6 +31,11 @@ def login(username,password):
 def user_id():
 	return session.get("user_id",0)
 
+def is_admin():
+	return session.get("admin",False)
+
 def logout():
 	del session["user_id"]
 	del session["username"]
+	if is_admin():
+		del session["admin"]

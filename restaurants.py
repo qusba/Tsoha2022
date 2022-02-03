@@ -10,7 +10,19 @@ def get_restaurant_name(name):
 	result = db.session.execute(sql,{"name":name})
 	return result.fetchone()
 
-def get_reviews(name):
-	sql = "SELECT review,stars FROM reviews WHERE restaurant_id = (SELECT id FROM restaurants WHERE name=:name) AND visible=TRUE"
-	result = db.session.execute(sql, {"name":name})
+def get_visible_reviews(name):
+	id = get_id(name)
+	sql = "SELECT review,stars,username,time FROM reviews WHERE restaurant_id = :id AND visible=TRUE"
+	result = db.session.execute(sql, {"name":name,"id":id})
 	return result.fetchall()
+
+def get_visible_info(name):
+	id = get_id(name)
+	sql = "SELECT title,info FROM restaurantInfo WHERE restaurant_id = :id AND visible=TRUE"
+	result = db.session.execute(sql, {"name":name,"id":id})
+	return result.fetchall()
+
+def get_id(name):
+	sql = "SELECT id FROM restaurants WHERE name=:name"
+	result = db.session.execute(sql,{"name":name})
+	return result.fetchone()[0]

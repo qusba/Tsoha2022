@@ -1,17 +1,46 @@
 from app import app
 from flask import render_template, request, redirect
-import users,restaurants
+import users,restaurants,reviews,restaurantInfo
 
 @app.route("/")
 def index():
 	list = restaurants.get_restaurants()
 	return render_template("index.html",reviewed_restaurants=list)
 
-@app.route("/restaurant/<string:name>")
+@app.route("/restaurant/<string:name>",methods=["GET","POST"])
 def restaurant(name):
-	r_name = restaurants.get_restaurant_name(name)
-	reviews = restaurants.get_reviews(name)
-	return render_template("restaurant.html",restaurant_name=r_name,reviews=reviews)
+	if request.method == "GET":
+		r_name = restaurants.get_restaurant_name(name)
+		r_reviews = restaurants.get_visible_reviews(name)
+		v_info = restaurants.get_visible_info(name)
+		return render_template("restaurant.html",restaurant_name=r_name,reviews=r_reviews,v_info=v_info)
+	if request.method == "POST":
+		stars = request.form["stars"]
+		review = request.form["review"]
+		id = users.user_id()
+		r_name = restaurants.get_restaurant_name(name)
+		if 1<= len(review) <=200:
+			reviews.review(stars,review,id,r_name[0])
+			return redirect(f"/restaurant/{r_name[0]}")
+		else:
+			return render_template("error.html", error = "Sanallisen arvion tulee olla 1-200 merkkiä!")
+
+@app.route("/info/<string:name>",methods = ["GET","POST"])
+def info(name):
+	if users.is_admin():
+		if request.method == "GET":
+			r_name = restaurants.get_restaurant_name(name)
+			v_info = restaurants.get_visible_info(name)
+			return render_template("info.html",restaurant_name=r_name,v_info=v_info)
+		if request.method == "POST":
+			r_name = restaurants.get_restaurant_name(name)
+			title = request.form["title"]
+			info = request.form["info"]
+			r_id = restaurants.get_id(name)
+			restaurantInfo.add_info(r_id,title,info)
+			return redirect(f"/info/{r_name[0]}")
+	else:
+                return render_template("error.html", error = "Sinulla ei ole oikeuksia nähdä tätä sivua.")
 
 @app.route("/login", methods=["GET","POST"])
 def login():

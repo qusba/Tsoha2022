@@ -1,11 +1,49 @@
 <title>{{ restaurant_name[0] }}</title>
 <h1>{{ restaurant_name[0] }}</h1>
 <br>
-<h2>Arviot:</h2>
+<h2>Tiedot:</h2>
+<hr>
+{% for info in v_info %}
+{{ info[0] }}: <i>{{ info[1] }}</i>
 <p>
+</hr>
+{% endfor %}<br>
+{% if session.admin %}
+Muokkaa ravintolan tietoja <a href="/info/{{ restaurant_name[0] }}">tästä.</a>
+{% endif %}
+<h2>Arviot:</h2>
+<hr>
 {% for review in reviews %}
-{{ review[1] }} tähteä<br>
-{{ review[0] }}
-</p>
+Käyttäjä: <i>{{ review[2] }}</i>
+<p>
+Aika: <i>{{ review[3].strftime("%Y-%m-%d %H:%M:%S") }}</i>
+<p>
+Arvio:  <i>{{ review[1] }}</i> tähteä<br> 
+<i>{{ review[0] }}</i>
+</hr>
 {% endfor %}
  
+{% if session.username %}
+<form action"/restaurant/{{ restaurant_name[0] }}" method = "POST">
+Anna arvio ravintolasta:<br>
+<p>
+Tähdet: 
+<input type="radio" name="stars" value="1"> 1
+<input type="radio" name="stars" value="2"> 2
+<input type="radio" name="stars" value="3"> 3
+<input type="radio" name="stars" value="4"> 4
+<input type="radio" name="stars" value="5"> 5
+<p>
+Sanallinen arvio:<br>
+<textarea name=review rows="3" cols="50"></textarea>
+<p>
+<input type="submit" value="Lähetä">
+</form>
+{% else %}
+<p>
+<br>
+Lähettääksesi arvion sinun on <a href="/login">kirjauduttava sisään.</a>
+{% endif %}
+<p>
+<a href="/">Etusivulle</a>
+</p>
