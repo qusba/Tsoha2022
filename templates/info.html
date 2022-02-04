@@ -1,5 +1,5 @@
-<title>{{ restaurant_name[0] }} info</title>
-<h1>{{ restaurant_name[0] }} informaatio</h1>
+<title>{{ restaurant_name }} info</title>
+<h1>{{ restaurant_name }} informaatio</h1>
 Näkyvä info:<br>
 <hr>
 {% for info in v_info %}
@@ -10,7 +10,7 @@ Näkyvä info:<br>
 <p>
 <br>
 Lisää informaatiota: <br>
-<form action="/info/{{ restaurant_name[0] }}" method = "POST">
+<form action="/info/{{ restaurant_name }}" method = "POST">
 Informaation tyyppi: <i>(esim. kuvaus, aukioloajat)</i> <br>
 <textarea name="title" rows="2" cols="40"></textarea> <br>
 <p>

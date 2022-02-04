@@ -1,5 +1,5 @@
-<title>{{ restaurant_name[0] }}</title>
-<h1>{{ restaurant_name[0] }}</h1>
+<title>{{ restaurant_name }}</title>
+<h1>{{ restaurant_name }}</h1>
 <br>
 <h2>Tiedot:</h2>
 <hr>
@@ -9,7 +9,7 @@
 </hr>
 {% endfor %}<br>
 {% if session.admin %}
-Muokkaa ravintolan tietoja <a href="/info/{{ restaurant_name[0] }}">tästä.</a>
+Muokkaa ravintolan tietoja <a href="/info/{{ restaurant_name }}">tästä.</a>
 {% endif %}
 <h2>Arviot:</h2>
 <hr>
@@ -21,10 +21,12 @@ Aika: <i>{{ review[3].strftime("%Y-%m-%d %H:%M:%S") }}</i>
 Arvio:  <i>{{ review[1] }}</i> tähteä<br> 
 <i>{{ review[0] }}</i>
 </hr>
-{% endfor %}
- 
+{% endfor %}<br>
+{% if session.admin %}
+Muokkaa arvioita <a href="/modify-reviews/{{ restaurant_name }}">tästä</a>
+{% endif %}
 {% if session.username %}
-<form action"/restaurant/{{ restaurant_name[0] }}" method = "POST">
+<form action"/restaurant/{{ restaurant_name }}" method = "POST">
 Anna arvio ravintolasta:<br>
 <p>
 Tähdet: 

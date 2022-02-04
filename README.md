@@ -10,7 +10,7 @@ Sovelluksessa näkyy tietyn alueen ravintolat, joista voi etsiä tietoa ja lukea
  * Käyttäjä näkee ravintolat kartalla ja voi painaa ravintolasta, jolloin siitä näytetään lisää tietoa (kuten kuvaus ja aukioloajat).
  * Käyttäjä voi antaa arvion (tähdet ja kommentti) ravintolasta ja lukea muiden antamia arvioita.(tehty)
  * Ylläpitäjä voi lisätä ja poistaa ravintoloita sekä määrittää ravintolasta näytettävät tiedot.(aloitettu)
- * Käyttäjä voi etsiä kaikki ravintolat, joiden kuvauksessa on annettu sana.
+ * Käyttäjä voi etsiä kaikki ravintolat, joiden kuvauksessa on annettu sana.(tehty)
  * Käyttäjä näkee myös listan, jossa ravintolat on järjestetty parhaimmasta huonoimpaan arvioiden mukaisesti.(tehty)
- * Ylläpitäjä voi tarvittaessa poistaa käyttäjän antaman arvion.
+ * Ylläpitäjä voi tarvittaessa poistaa käyttäjän antaman arvion.(tehty)
  * Ylläpitäjä voi luoda ryhmiä, joihin ravintoloita voi luokitella. Ravintola voi kuulua yhteen tai useampaan ryhmään.

@@ -4,41 +4,64 @@ import users,restaurants,reviews,restaurantInfo
 
 @app.route("/")
 def index():
-	list = restaurants.get_restaurants()
-	return render_template("index.html",reviewed_restaurants=list)
+	list_of_reviewed_restaurants = restaurants.get_reviewed_restaurants()
+	list_of_all_restaurants = restaurants.get_all_restaurants()
+	return render_template("index.html",reviewed_restaurants=list_of_reviewed_restaurants,all_restaurants=list_of_all_restaurants)
+
+@app.route("/result",methods=["GET"])
+def result():
+	query = request.args["query"]
+	results = restaurantInfo.info_query(query)
+	return render_template("result.html",results=results)
 
 @app.route("/restaurant/<string:name>",methods=["GET","POST"])
 def restaurant(name):
 	if request.method == "GET":
-		r_name = restaurants.get_restaurant_name(name)
-		r_reviews = restaurants.get_visible_reviews(name)
-		v_info = restaurants.get_visible_info(name)
-		return render_template("restaurant.html",restaurant_name=r_name,reviews=r_reviews,v_info=v_info)
+		r_reviews = reviews.get_visible_reviews(name)
+		v_info = restaurantInfo.get_visible_info(name)
+		return render_template("restaurant.html",restaurant_name=name,reviews=r_reviews,v_info=v_info)
+
 	if request.method == "POST":
 		stars = request.form["stars"]
 		review = request.form["review"]
 		id = users.user_id()
-		r_name = restaurants.get_restaurant_name(name)
 		if 1<= len(review) <=200:
-			reviews.review(stars,review,id,r_name[0])
-			return redirect(f"/restaurant/{r_name[0]}")
+			reviews.review(stars,review,id,name)
+			return redirect(f"/restaurant/{name}")
 		else:
 			return render_template("error.html", error = "Sanallisen arvion tulee olla 1-200 merkkiä!")
+
+@app.route("/modify-reviews/<string:name>", methods = ["GET","POST"])
+def modify_reviews(name):
+	if users.is_admin():
+		if request.method == "GET":
+			all_reviews = reviews.get_all_reviews(name)
+			return render_template("modify-reviews.html",reviews = all_reviews, name = name)
+		if request.method == "POST":
+			if request.form["id"] != "":
+				id = int(request.form["id"])
+				visible = request.form["action"]
+				if reviews.modify_review(id,visible):
+					return redirect(f"/modify-reviews/{name}")
+				else:
+					return render_template("error.html",error="Virheellinen id numero")
+			else:
+				return render_template("error.html", error = "Syötä id numero.")
+	else:
+		return render_template("error.html", error = "Sinulla ei ole oikeuksia nähdä tätä sivua.")
 
 @app.route("/info/<string:name>",methods = ["GET","POST"])
 def info(name):
 	if users.is_admin():
 		if request.method == "GET":
-			r_name = restaurants.get_restaurant_name(name)
-			v_info = restaurants.get_visible_info(name)
-			return render_template("info.html",restaurant_name=r_name,v_info=v_info)
+			v_info = restaurantInfo.get_visible_info(name)
+			return render_template("info.html",restaurant_name=name,v_info=v_info)
 		if request.method == "POST":
-			r_name = restaurants.get_restaurant_name(name)
 			title = request.form["title"]
 			info = request.form["info"]
 			r_id = restaurants.get_id(name)
 			restaurantInfo.add_info(r_id,title,info)
-			return redirect(f"/info/{r_name[0]}")
+			return redirect(f"/info/{name}")
 	else:
                 return render_template("error.html", error = "Sinulla ei ole oikeuksia nähdä tätä sivua.")
 

@@ -1,15 +1,25 @@
 <title>Ravintolasovellus</title>
 <h1>Tervetuloa!</h1>
 <br>
+Ravintolahaku:<br>
+<form action="/result" method="GET">
+<input type="text" name="query"><br>
+<input type="submit" value="Hae">
+<hr>
 <h2>Arvioidut ravintolat:</h2>
 <hr>
 {% for restaurant in reviewed_restaurants %}
 <p>
-<i>Ravintola:</i> <a href="/restaurant/{{ restaurant[0] }}">{{ restaurant[0] }}</a>, {{ restaurant[1] }} tähteä
+ <a href="/restaurant/{{ restaurant[0] }}">{{ restaurant[0] }}</a>, {{ restaurant[1] }} tähteä
 {% endfor %}
-</p>
-
-
+<p>
+<h2>Kaikki ravintolat:</h2>
+<hr>
+{% for restaurant in all_restaurants %}
+<p>
+<a href="/restaurant/{{ restaurant[0] }}">{{ restaurant[0] }}</a>
+{% endfor %}
+<hr>
 
 
 

@@ -1,0 +1,8 @@
+<h1>Kyselyn tulokset:</h1>
+<hr>
+{% for result in results %}
+<a href="/restaurant/{{ result[1] }}">{{ result[1] }}</a>
+<p>
+{% endfor %}
+<br>
+<a href="/">Etusivulle</a>

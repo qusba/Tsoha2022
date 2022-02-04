@@ -1,0 +1,19 @@
+<h1> {{ name }} arvioiden muokkaus </h1>
+<p>
+{% for review in reviews %}
+<hr>
+id: <b>{{ review[0] }}</b>, <i>{{ review[2] }}</i> tähteä, käyttäjä: <i>{{ review[3] }}</i>, näkyvä: {% if review[4] %}kyllä {% else %}ei {% endif %}
+<p>
+Arvio:<br>
+{{ review[1] }}
+</hr>
+{% endfor %}
+<p>
+<form action="/modify-reviews/{{ name }}" method = "POST">
+Mitä arviota haluat muokata (id numero): <br>
+<textarea name="id" rows="1" cols="30" ></textarea><br>
+<input type="radio" name="action" value=FALSE>Piilota 
+<input type="radio" name="action" value=TRUE> Muuta näkyväksi<br>
+<input type="submit" value="Muokkaa">
+<p>
+<a href="/">Etusivulle</a>
