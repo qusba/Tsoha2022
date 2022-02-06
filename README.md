@@ -1,5 +1,6 @@
 
 # Ravintolasovellus
+*SOVELLUSTA EI VOI TESTATA HEROKUSSA, KOSKA EN SAA SITÄ TOIMIMAAN ILMAN SUDOJA JA TOIVOISIN APUA*
 
 ***Sovellus on yksi Tietokantasovellus -kurssin ehdotettuja aiheita ja sovelluksen toiminnallisuudet ovat määritelty sen mukaisesti***
 
