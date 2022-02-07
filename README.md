@@ -1,6 +1,7 @@
 
 # Ravintolasovellus
-*SOVELLUSTA EI VOI TESTATA HEROKUSSA, KOSKA EN SAA SITÄ TOIMIMAAN ILMAN SUDOJA JA TOIVOISIN APUA*
+
+Sovellus Herokussa[https://salty-lowlands-06379.herokuapp.com/]. Aloita kirjautumalla sisään käyttäjällä "ylläpitäjä" salasanalla admin. Tämän jälkeen voit lisätä muutaman ravintolan ja kokeilla ominaisuuksia peruskäyttäjänä tai ylläpitäjänä.
 
 ***Sovellus on yksi Tietokantasovellus -kurssin ehdotettuja aiheita ja sovelluksen toiminnallisuudet ovat määritelty sen mukaisesti***
 
