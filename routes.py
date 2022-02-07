@@ -14,6 +14,17 @@ def result():
 	results = restaurantInfo.info_query(query)
 	return render_template("result.html",results=results)
 
+@app.route("/new-restaurant",methods=["GET","POST"])
+def new_restaurant():
+	if users.is_admin():
+		if request.method == "GET":
+			return render_template("new-restaurant.html")
+		if request.method == "POST":
+			name = request.form["name"]
+			if restaurants.add_restaurant(name):
+				return redirect("/")
+			else:
+				return render_template("error.html",error="jokin meni vikaan")
 @app.route("/restaurant/<string:name>",methods=["GET","POST"])
 def restaurant(name):
 	if request.method == "GET":

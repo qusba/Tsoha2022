@@ -18,7 +18,10 @@ Ravintolahaku:<br>
 {% for restaurant in all_restaurants %}
 <p>
 <a href="/restaurant/{{ restaurant[0] }}">{{ restaurant[0] }}</a>
-{% endfor %}
+{% endfor %}<br>
+<p>
+{% if session.admin %} <a href="/new-restaurant">Lisää ravintola</a> {% endif %}
+
 <hr>
 
 

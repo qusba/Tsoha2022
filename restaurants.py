@@ -1,5 +1,14 @@
 from db import db
 
+def add_restaurant(name):
+	sql = "INSERT INTO restaurants (name,visible) VALUES (:name,TRUE)"
+	try:
+		db.session.execute(sql,{"name":name})
+		db.session.commit()
+		return True
+	except:
+		return False
+
 def get_reviewed_restaurants():
 	sql = "SELECT a.name,sum(r.stars)/count(r.stars) FROM restaurants a, reviews r WHERE a.id = r.restaurant_id AND r.visible = TRUE GROUP BY a.name ORDER BY sum(r.stars)/count(r.stars) DESC"
 	result = db.session.execute(sql)
