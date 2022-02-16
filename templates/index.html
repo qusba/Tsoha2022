@@ -17,10 +17,10 @@ Ravintolahaku:<br>
 <hr>
 {% for restaurant in all_restaurants %}
 <p>
-<a href="/restaurant/{{ restaurant[0] }}">{{ restaurant[0] }}</a>
+<a href="/restaurant/{{ restaurant[1] }}">{{ restaurant[1] }}</a>
 {% endfor %}<br>
 <p>
-{% if session.admin %} <a href="/new-restaurant">Lisää ravintola</a> {% endif %}
+{% if session.admin %} <a href="/new-restaurant">Lisää ravintola</a>  |   <a href="/delete-restaurants">Poista/tuo takaisin ravintola</a>{% endif %}
 
 <hr>
 
@@ -32,6 +32,6 @@ Ravintolahaku:<br>
 <a href="/logout">Kirjaudu ulos</a>
 {% else %}
 <p>
-<a href="/login">Kirjaudu sisään</a>|<a href="/register">Rekisteröidy</a>
+<a href="/login">Kirjaudu sisään</a> | <a href="/register">Rekisteröidy</a>
 </p>
 {% endif %}

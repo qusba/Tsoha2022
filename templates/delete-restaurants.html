@@ -1,0 +1,16 @@
+<h1>Ravintoloiden poisto/palautus</h1>
+<hr>
+{% for restaurant in restaurants %}
+id:<i> {{ restaurant[0] }}</i>, nimi: <i>{{ restaurant[1] }} </i>
+<p> 
+{% endfor %}
+<p>
+<form action="/delete-restaurants", method = "POST">
+Mitä ravintolaa haluat muokata? (id numero):<br>
+<textarea name="id" rows="2" cols="40"></textarea>
+<br>
+<input type="radio" name="action" value="FALSE">Piilota
+<input type="radio" name="action" value="TRUE"> Muuta näkyväksi<br>
+<input type="submit" value="Muokkaa">
+<p>
+<a href="/">Etusivulle</a>

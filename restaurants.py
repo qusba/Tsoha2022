@@ -9,13 +9,27 @@ def add_restaurant(name):
 	except:
 		return False
 
+def hide_restaurant(id,visible):
+	try:
+		sql = "UPDATE restaurants SET visible=:visible WHERE id=:id"
+		db.session.execute(sql,{"id":id,"visible":visible})
+		db.session.commit()
+		return True
+	except:
+		return False
+
 def get_reviewed_restaurants():
 	sql = "SELECT a.name,sum(r.stars)/count(r.stars) FROM restaurants a, reviews r WHERE a.id = r.restaurant_id AND r.visible = TRUE GROUP BY a.name ORDER BY sum(r.stars)/count(r.stars) DESC"
 	result = db.session.execute(sql)
 	return result.fetchall()
 
+def get_all_visible_restaurants():
+	sql = "SELECT id,name FROM restaurants WHERE visible=True ORDER BY name"
+	result = db.session.execute(sql)
+	return result.fetchall()
+
 def get_all_restaurants():
-	sql = "SELECT name FROM restaurants ORDER BY name"
+	sql = "SELECT id,name FROM restaurants ORDER BY name"
 	result = db.session.execute(sql)
 	return result.fetchall()
 

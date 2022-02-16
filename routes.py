@@ -5,8 +5,8 @@ import users,restaurants,reviews,restaurantInfo
 @app.route("/")
 def index():
 	list_of_reviewed_restaurants = restaurants.get_reviewed_restaurants()
-	list_of_all_restaurants = restaurants.get_all_restaurants()
-	return render_template("index.html",reviewed_restaurants=list_of_reviewed_restaurants,all_restaurants=list_of_all_restaurants)
+	list_of_all_visible_restaurants = restaurants.get_all_visible_restaurants()
+	return render_template("index.html",reviewed_restaurants=list_of_reviewed_restaurants,all_restaurants=list_of_all_visible_restaurants)
 
 @app.route("/result",methods=["GET"])
 def result():
@@ -25,6 +25,23 @@ def new_restaurant():
 				return redirect("/")
 			else:
 				return render_template("error.html",error="jokin meni vikaan")
+
+@app.route("/delete-restaurants",methods=["GET","POST"])
+def delete_restaurants():
+	if users.is_admin():
+		if request.method == "GET":
+			list_of_all_restaurants = restaurants.get_all_restaurants()
+			return render_template("delete-restaurants.html", restaurants = list_of_all_restaurants)
+		if request.method == "POST":
+			id = int(request.form["id"])
+			visible = request.form["action"]
+			if restaurants.hide_restaurant(id,visible):
+				return redirect("/delete-restaurants")
+			else:
+				return render_template("error.html", error = "Virheellinen id numero")
+	else:
+		return render_template("error.html", error = "Sinulla ei ole oikeuksia nähdä tätä sivua")
+
 @app.route("/restaurant/<string:name>",methods=["GET","POST"])
 def restaurant(name):
 	if request.method == "GET":
