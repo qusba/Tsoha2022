@@ -1,22 +1,39 @@
-<title>{{ restaurant_name }} info</title>
-<h1>{{ restaurant_name }} informaatio</h1>
-Näkyvä info:<br>
-<hr>
-{% for info in v_info %}
-<i>{{ info[0] }}</i>: {{ info[1] }}
-<p>
-{% endfor %}
-</hr>
-<p>
-<br>
-Lisää informaatiota: <br>
-<form action="/info/{{ restaurant_name }}" method = "POST">
-Informaation tyyppi: <i>(esim. kuvaus, aukioloajat)</i> <br>
-<textarea name="title" rows="2" cols="40"></textarea> <br>
-<p>
-Sisältö:<br>
-<textarea name="info" rows="5" cols="40"></textarea><br>
-<input type="submit" value="Lähetä">
-</form>
+{% extends "layout.html" %}
+{% block content %}
 
-<a href="/">Etusivulle</a>
+<head>
+	<title>{{ restaurant_name }} info</title>
+	<h1>{{ restaurant_name }} informaatio</h1>
+</head>
+
+<body>
+	<div class="wrapper">
+		<div class="box">
+			<br>
+			<h2>Kaikki info:</h2>
+			<p>
+			{% for info in all_info %}
+			id: <i>{{ info[0] }}</i>, <i>{{ info[1] }}</i>: {{ info[2] }}, näkyvä: {% if info[3] %}<i>kyllä</i>{% else %}<i>ei</i>{% endif %}
+			<p>
+			{% endfor %}
+		</div>
+	</div>
+	<br>		
+	Piilota/tuo näkyväksi informaatiota:
+	<p>
+	<form action="/info/{{ restaurant_name }}" method = "POST">
+	Informaation id numero:
+	<br>
+	<textarea name="id" rows="2" cols="40"></textarea> <br>
+	<p>
+	<input type="radio" name="action" value="FALSE">Piilota
+	<input type="radio" name="action" value="TRUE">Tuo näkyväksi
+	<input type="hidden" name="action" value="bad">
+	<input type="submit" value="Muokkaa">
+	<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+	</form>
+	<br>
+	<a href="/">Etusivulle</a>  |  <a href="/restaurant/{{ restaurant_name }}">Ravintolan sivuille</a>
+</body>
+
+{% endblock %}

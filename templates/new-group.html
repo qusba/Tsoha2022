@@ -2,19 +2,18 @@
 {% block content %}
 
 <head>
-	<title>new-restaurant</title>
-	<h1>Luo uusi ravintola</h1>
+	<h1> Luo uusi ryhmä </h1>
+	<br>
 </head>
 
 <body>
 	<div class="wrapper">
 		<div class="box">
 			<br>
-			<form action="/new-restaurant" method="POST">
-			Uuden ravintolan nimi:<br>
-			<textarea name="name" rows="2" cols="40"></textarea>
-			<br>
-			<input type="submit" value="luo">
+			<form action="/new-group" method="POST">
+			Uuden ryhmän nimi:<br>
+			<textarea name="name" rows="2" cols="40"></textarea><br>
+			<input type="submit" value="Luo">
 			<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 			</form>
 		</div>

@@ -1,31 +1,63 @@
-<title>Ravintolasovellus</title>
-<h1>Tervetuloa!</h1>
-<br>
-Ravintolahaku:<br>
-<form action="/result" method="GET">
-<input type="text" name="query"><br>
-<input type="submit" value="Hae">
-<hr>
-<h2>Arvioidut ravintolat:</h2>
-<hr>
-{% for restaurant in reviewed_restaurants %}
-<p>
- <a href="/restaurant/{{ restaurant[0] }}">{{ restaurant[0] }}</a>, {{ restaurant[1] }} tähteä
-{% endfor %}
-<p>
-<h2>Kaikki ravintolat:</h2>
-<hr>
-{% for restaurant in all_restaurants %}
-<p>
-<a href="/restaurant/{{ restaurant[1] }}">{{ restaurant[1] }}</a>
-{% endfor %}<br>
-<p>
-{% if session.admin %} <a href="/new-restaurant">Lisää ravintola</a>  |   <a href="/delete-restaurants">Poista/tuo takaisin ravintola</a>{% endif %}
+{% extends "layout.html" %}
+{% block content %}
 
-<hr>
+<head>
+	<title>Ravintolasovellus</title>
+	<h1>Tervetuloa!</h1>
+	<br>
+</head>
+
+<div class="login">
+	{% if session.username %}
+        <p>Kirjautunut käyttäjänä {{ session.username }}</p>
+        <a href="/logout">Kirjaudu ulos</a>
+        {% else %}
+        <p>
+        <a href="/login">Kirjaudu sisään</a> | <a href="/register">Rekisteröidy</a>
+        </p>
+        {% endif %}
+</div>
 
 
+<body>
+	Ravintolan kuvaushaku: (esim. Kiinalainen)<br>
+	<form action="/result" method="GET">
+	<input type="text" name="query"><br>
+	<input type="submit" value="Hae">
+</body>
 
+<div class="wrapper">
+	<div class="box">
+		<h2>Kaikki ravintolat:</h2>
+                <hr>
+                {% for restaurant in all_restaurants %}
+                <p>
+                <a href="/restaurant/{{ restaurant[1] }}">{{ restaurant[1] }}</a>
+                {% endfor %}<br>
+                <p>
+                {% if session.admin %} <a href="/new-restaurant">Lisää ravintola</a>  |   <a href="/delete-restaurants">Poista/tuo takaisin ravintola</a>{% endif %}
+		</div>
+	
+	<div class="box">
+		<h2>Arvioidut ravintolat:</h2>
+                <hr>
+                {% for restaurant in reviewed_restaurants %}
+                <p>
+                <a href="/restaurant/{{ restaurant[0] }}">{{ restaurant[0] }}</a>, {{ restaurant[1] }} tähteä
+                {% endfor %}
+		</div>
+
+	<div class="box">
+		<h2>Ravintolaryhmät:</h2>
+		<hr>
+		{% for group in groups %}
+		<a href="/group/{{ group[0] }}">{{ group[0] }}</a>
+		<p>
+		{% endfor %}
+		<p>
+		{% if session.admin %} <a href="/new-group">Lisää ryhmä</a>  |  <a href="/delete-groups">Poista/tuo takaisin ryhmä</a>{% endif %}<br>
+		</div>
+</div>
 
 {% if session.username %}
 <p>Kirjautunut käyttäjänä {{ session.username }}</p>
@@ -35,3 +67,4 @@ Ravintolahaku:<br>
 <a href="/login">Kirjaudu sisään</a> | <a href="/register">Rekisteröidy</a>
 </p>
 {% endif %}
+{% endblock %}

@@ -1,0 +1,42 @@
+body {
+	
+	margin: auto;
+	font-family: Arial,Helvetica;
+	background-color: pink;
+	text-align: center;
+	}
+
+h1 {
+	font-weight: bold;
+	font-size: 5rem;
+	color:white;
+	text-align: center;
+	text-shadow: 2px 2px 1px black;
+	}
+h2 {
+	font-weight: bold;
+	font-size: 3rem;
+	color: white;
+	text-align: center;
+	text-shadow: 2px 2px 1px black;
+	}
+
+
+.wrapper {
+	display: flex;
+	}
+.wrapper > div {
+	flex: 1;
+	}
+
+.box {
+	border: 3px solid black;
+	max-height: 430px;
+	min-height: 200px;
+	overflow: auto;
+	}
+.login {
+	position:absolute;
+	top: 10px;
+	left: 10px;
+	}

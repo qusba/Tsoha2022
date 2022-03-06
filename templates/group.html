@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+
 <head>
 	<div class="login">
         	{% if session.username %}
@@ -11,21 +12,19 @@
         	</p>
         	{% endif %}
 	</div>
-	<h1>Kyselyn tulokset:</h1>
+	<h1>Ravintolat, jotka ovat tyyppiä: {{ restaurant_name }} </h1>
 </head>
+
 <body>
-	<div class="wrapper">
-		<div class="box">
-			<br>
-			{% for result in results %}
-			<a href="/restaurant/{{ result[1] }}">{{ result[1] }}</a>
-			<p>
-			{% endfor %}
-			<br>
-		</div>
+	<div class="box">
+		<br>
+		{% for result in results %}
+		<a href="/restaurant/{{ result[1] }}">{{ result[1] }}</a>
+		<p>
+		{% endfor %}
 	</div>
 	<br>
 	<a href="/">Etusivulle</a>
 </body>
 
-{% endblock %}
+{% endblock %}

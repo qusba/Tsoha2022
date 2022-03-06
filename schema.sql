@@ -3,5 +3,5 @@ INSERT INTO users (username,password,admin) VALUES ('ylläpitäjä','pbkdf2:sha2
 CREATE TABLE restaurants (id SERIAL PRIMARY KEY, name TEXT, visible BOOLEAN);
 CREATE TABLE restaurantInfo (id SERIAL PRIMARY KEY, restaurant_id INTEGER REFERENCES restaurants, title TEXT, info TEXT, visible BOOLEAN);
 CREATE TABLE reviews (id SERIAL PRIMARY KEY, restaurant_id INTEGER REFERENCES restaurants, stars INTEGER, review TEXT, visible BOOLEAN, username TEXT, time TIMESTAMP);
-CREATE TABLE groups (id SERIAL PRIMARY KEY, name TEXT, restaurants INTEGER REFERENCES restaurants);
+CREATE TABLE groups (id SERIAL PRIMARY KEY, name TEXT UNIQUE, visible BOOLEAN);
 

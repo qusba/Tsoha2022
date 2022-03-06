@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<head>
+	<h1>Ryhmien poisto/palautus</h1>
+</head>
+
+<body>
+	<div class="wrapper">
+		<div class="box">
+			<h2>Ryhmät:</h2>
+			<p>
+			{% for group in groups %}
+			id: <i>{{ group[1] }}</i>, nimi: <i>{{ group[0] }}</i>, näkyvissä: <i>{% if group[2] %}kyllä</i> {% else %}ei</i>{% endif %}
+			<p>
+			{% endfor %}
+			<p>
+		</div>
+	</div>
+	<br>
+	<form action="/delete-groups" method="POST">
+	Ryhmän id numero:<br>
+	<textarea name="id" rows="2" cols="40"></textarea><br>
+	<input type="radio" name="action" value="FALSE">Piilota
+	<input type="radio" name="action" value="TRUE">Muuta näkyväksi
+	<input type="hidden" name="action" value="bad">
+	<input type="submit" value="Muokkaa">
+	<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+	</form>
+	<br>
+	<a href="/">Etusivulle</a>
+</body>
+
+{% endblock %}

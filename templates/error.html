@@ -1,6 +1,14 @@
-<h1>Jokin meni vikaan</h1>
-<br>
-{{ error }}
-<br>
-<p>
-Voit palata takaisin tai siirtyä <a href="/">etusivulle.</a>
+{% extends "layout.html" %}
+{% block content %}
+
+<head>
+	<h1>Jokin meni vikaan</h1>
+</head>
+
+<body>
+	{{ error }}
+	<p>
+	Voit palata takaisin tai siirtyä <a href="/">etusivulle.</a>
+</body>
+
+{% endblock %}

@@ -1,9 +1,17 @@
-<form action="/login" method="POST">
-Käyttäjätunnus: <input type="text" name="username">
-<p>
-Salasana: <input type="password" name="password">
-<p>
-<input type="submit" value="Kirjaudu">
-</form>
-<br>
-<a href="/register">Rekisteröitymiseen</a>
+{% extends "layout.html" %}
+{% block content %}
+
+<body>
+	<form action="/login" method="POST">
+	Käyttäjätunnus: <input type="text" name="username">
+	<p>
+	Salasana: <input type="password" name="password">
+	<p>
+	<input type="submit" value="Kirjaudu">
+	</form>
+	<br>
+	<a href="/register">Rekisteröitymiseen</a>
+	<p>
+	<a href="/">Etusivulle</a>
+</body>
+{% endblock %}

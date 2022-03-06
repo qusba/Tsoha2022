@@ -1,51 +1,98 @@
-<title>{{ restaurant_name }}</title>
-<h1>{{ restaurant_name }}</h1>
+{% extends "layout.html" %}
+{% block content %}
+
+<head>
+	<title>{{ restaurant_name }}</title>
+	<div class="login">
+        	{% if session.username %}
+        	<p>Kirjautunut käyttäjänä {{ session.username }}</p>
+        	<a href="/logout">Kirjaudu ulos</a>
+        	{% else %}
+        	<p>
+        	<a href="/login">Kirjaudu sisään</a> | <a href="/register">Rekisteröidy</a>
+        	</p>
+        	{% endif %}
+	</div>
+	<h1>{{ restaurant_name }}</h1>
+	<br>
+</head>
+
+<body>
+	<div class="wrapper">
+		<div class="box">
+			<h2>Tiedot:</h2>
+			<hr>
+			{% for info in v_info %}
+			{{ info[0] }}: <i>{{ info[1] }}</i>
+			<p>
+			{% endfor %}<br>
+			<hr>
+			{% if session.admin %}
+			Lisää informaatiota:
+			<p>
+			<form action"/restaurant/{{ restaurant_name }}" method = "POST">
+			Informaation tyyppi: <i>(esim. kuvaus, aukioloajat, yhteystiedot, osoite)</i>
+			<br>
+       			<textarea name="title" rows="2" cols="40"></textarea>
+        		<p>
+        		Sisältö:
+			<br>
+        		<textarea name="info" rows="5" cols="40"></textarea>
+			<br>
+        		<input type="submit" value="Lähetä">
+			<input type="hidden" name="form" value="1">
+        		<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        		</form>
+
+			Piilota/tuo takaisin ravintolan tietoja <a href="/info/{{ restaurant_name }}">tästä.</a>
+			{% endif %}
+		</div>
+		<div class="box">
+			<h2>Arviot:</h2>
+			<hr>
+			{% for review in reviews %}
+			Käyttäjä: <i>{{ review[2] }}</i>
+			<p>
+			Aika: <i>{{ review[3].strftime("%Y-%m-%d %H:%M:%S") }}</i>
+			<p>
+			Arvio:  <i>{{ review[1] }}</i> tähteä
+			<br> 
+			<i>{{ review[0] }}</i>
+			<hr>
+			{% endfor %}
+			<br>
+			{% if session.admin %}
+			Muokkaa arvioita <a href="/modify-reviews/{{ restaurant_name }}">tästä</a>
+			{% endif %}
+			<p>
+			{% if session.username %}
+			<form action"/restaurant/{{ restaurant_name }}" method = "POST">
+			Anna arvio ravintolasta:
+			<p>
+			Tähdet: 
+			<input type="radio" name="stars" value="1"> 1
+			<input type="radio" name="stars" value="2"> 2
+			<input type="radio" name="stars" value="3"> 3
+			<input type="radio" name="stars" value="4"> 4
+			<input type="radio" name="stars" value="5"> 5
+			<p>
+			Sanallinen arvio:<br>
+			<textarea name=review rows="3" cols="50"></textarea>
+			<p>
+			<input type="submit" value="Lähetä">
+			<input type="hidden" name="form" value="2">
+			<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+			</form>
+			{% else %}
+			<p>
+			<br>
+			Lähettääksesi arvion sinun on <a href="/login">kirjauduttava sisään.</a>
+			{% endif %}
+			</p>
+			</div>
+	</div>
 <br>
-<h2>Tiedot:</h2>
-<hr>
-{% for info in v_info %}
-{{ info[0] }}: <i>{{ info[1] }}</i>
-<p>
-</hr>
-{% endfor %}<br>
-{% if session.admin %}
-Muokkaa ravintolan tietoja <a href="/info/{{ restaurant_name }}">tästä.</a>
-{% endif %}
-<h2>Arviot:</h2>
-<hr>
-{% for review in reviews %}
-Käyttäjä: <i>{{ review[2] }}</i>
-<p>
-Aika: <i>{{ review[3].strftime("%Y-%m-%d %H:%M:%S") }}</i>
-<p>
-Arvio:  <i>{{ review[1] }}</i> tähteä<br> 
-<i>{{ review[0] }}</i>
-</hr>
-{% endfor %}<br>
-{% if session.admin %}
-Muokkaa arvioita <a href="/modify-reviews/{{ restaurant_name }}">tästä</a>
-{% endif %}
-{% if session.username %}
-<form action"/restaurant/{{ restaurant_name }}" method = "POST">
-Anna arvio ravintolasta:<br>
-<p>
-Tähdet: 
-<input type="radio" name="stars" value="1"> 1
-<input type="radio" name="stars" value="2"> 2
-<input type="radio" name="stars" value="3"> 3
-<input type="radio" name="stars" value="4"> 4
-<input type="radio" name="stars" value="5"> 5
-<p>
-Sanallinen arvio:<br>
-<textarea name=review rows="3" cols="50"></textarea>
-<p>
-<input type="submit" value="Lähetä">
-</form>
-{% else %}
-<p>
-<br>
-Lähettääksesi arvion sinun on <a href="/login">kirjauduttava sisään.</a>
-{% endif %}
-<p>
 <a href="/">Etusivulle</a>
-</p>
+</body>
+
+{% endblock %}

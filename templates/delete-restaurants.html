@@ -1,16 +1,34 @@
-<h1>Ravintoloiden poisto/palautus</h1>
-<hr>
-{% for restaurant in restaurants %}
-id:<i> {{ restaurant[0] }}</i>, nimi: <i>{{ restaurant[1] }} </i>
-<p> 
-{% endfor %}
-<p>
-<form action="/delete-restaurants", method = "POST">
-Mitä ravintolaa haluat muokata? (id numero):<br>
-<textarea name="id" rows="2" cols="40"></textarea>
-<br>
-<input type="radio" name="action" value="FALSE">Piilota
-<input type="radio" name="action" value="TRUE"> Muuta näkyväksi<br>
-<input type="submit" value="Muokkaa">
-<p>
-<a href="/">Etusivulle</a>
+{% extends "layout.html" %}
+{% block content %}
+
+<head>
+	<h1>Ravintoloiden poisto/palautus</h1>
+</head>
+
+<body>
+	<div class="wrapper">
+		<div class="box">
+			<br>
+			<h2>Ravintolat:</h2>
+			{% for restaurant in restaurants %}
+			<p>
+			id:<i> {{ restaurant[0] }}</i>, nimi: <i>{{ restaurant[1] }} </i> näkyvä:{% if restaurant[2] %} <i>kyllä</i> {% else %}<i> ei </i>{% endif %}
+			<p> 
+			{% endfor %}
+		</div>
+	</div>
+	<br>
+	<form action="/delete-restaurants", method = "POST">
+	Mitä ravintolaa haluat muokata? (id numero):<br>
+	<textarea name="id" rows="2" cols="40"></textarea>
+	<br>
+	<input type="radio" name="action" value="FALSE">Piilota
+	<input type="radio" name="action" value="TRUE"> Muuta näkyväksi<br>
+	<input type="hidden" name="action" value="bad">
+	<input type="submit" value="Muokkaa">
+	<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+	<p>
+	<a href="/">Etusivulle</a>
+</body>
+
+{% endblock %}
