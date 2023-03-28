@@ -1,12 +1,9 @@
 
 # Ravintolasovellus
 
-Sovellus [Herokussa](https://salty-lowlands-06379.herokuapp.com/). Aloita kirjautumalla sisään käyttäjällä "ylläpitäjä" salasanalla admin. Tämän jälkeen voit lisätä muutaman ravintolan ja kokeilla ominaisuuksia peruskäyttäjänä tai ylläpitäjänä.
-
 ***Sovellus on yksi Tietokantasovellus -kurssin ehdotettuja aiheita ja sovelluksen toiminnallisuudet ovat määritelty sen mukaisesti***
 
-
-Sovelluksessa näkyy tietyn alueen ravintolat, joista voi etsiä tietoa ja lukea arvioita. Jokainen käyttäjä on peruskäyttäjä tai ylläpitäjä.
+Sovelluksessa näkyy ylläpitäjän lisäämät ravintolat, joista voi etsiä tietoa ja lukea arvioita. Jokainen käyttäjä on peruskäyttäjä tai ylläpitäjä.
 
  * Käyttäjä voi kirjautua sisään ja ulos sekä luoda uuden tunnuksen.(tehty)
  * Käyttäjä näkee ravintolat kartalla ja voi painaa ravintolasta, jolloin siitä näytetään lisää tietoa (kuten kuvaus ja aukioloajat).(Jatkokehitysidea)
