@@ -1,8 +1,6 @@
 
 # Ravintolasovellus
 
-***Sovellus on yksi Tietokantasovellus -kurssin ehdotettuja aiheita ja sovelluksen toiminnallisuudet ovat määritelty sen mukaisesti***
-
 Sovelluksessa näkyy ylläpitäjän lisäämät ravintolat, joista voi etsiä tietoa ja lukea arvioita. Jokainen käyttäjä on peruskäyttäjä tai ylläpitäjä.
 
  * Käyttäjä voi kirjautua sisään ja ulos sekä luoda uuden tunnuksen.(tehty)
